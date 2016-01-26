@@ -19,8 +19,8 @@ import com.sun.jersey.multipart.FormDataParam;
 
 import javax.ws.rs.core.Response;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JaxRSServerCodegen", date = "2015-12-23T17:00:59.870-06:00")
-public class MslApiServiceImpl extends MslApiService {
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JaxRSServerCodegen", date = "2016-01-25T12:48:18.840-06:00")
+public class RatingsEdgeApiServiceImpl extends RatingsEdgeApiService {
   
       @Override
       public Response commentSong(String songId)
