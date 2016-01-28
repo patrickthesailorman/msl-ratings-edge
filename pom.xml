@@ -253,8 +253,8 @@
                             <ignore>io.swagger.api.*</ignore>
                         </ignores>
                         <excludes>
-                            <!--<exclude>com/example/dullcode/**/*.class</exclude>-->
-                            <!--<exclude>com/example/**/*Test.class</exclude>-->
+                            <exclude>io/swagger/api/**/*.class</exclude>
+                            <exclude>com/kenzan/msl/ratings/edge/**/*Test.class</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>

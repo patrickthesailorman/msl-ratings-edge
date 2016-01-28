@@ -14,24 +14,6 @@ public class RatingsEdgeApiServiceImpl extends RatingsEdgeApiService {
     private RatingsEdgeSessionToken ratingsSessionToken = RatingsEdgeSessionToken.getInstance();
 
     @Override
-    public Response commentSong(String songId)
-            throws NotFoundException {
-        if (RatingsEdgeSessionToken.getInstance().isValidToken()) {
-            try {
-                return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.ERROR, "not yet implemented")).build();
-            } catch (Exception e) {
-                e.printStackTrace();
-
-                ErrorResponse errorResponse = new ErrorResponse();
-                errorResponse.setMessage("Server error: " + e.getMessage());
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorResponse).build();
-            }
-        } else {
-            return Response.status(Response.Status.UNAUTHORIZED).entity(new RatingsEdgeApiResponseMessage(RatingsEdgeApiResponseMessage.ERROR, "no valid sessionToken provided")).build();
-        }
-    }
-
-    @Override
     public Response rateAlbum(String albumId, Integer rating)
             throws NotFoundException {
         if (RatingsEdgeSessionToken.getInstance().isValidToken()) {
