@@ -1,7 +1,7 @@
 package com.kenzan.msl.ratings.edge.services;
 
-import com.kenzan.msl.ratings.client.dao.AverageRatingsDao;
-import com.kenzan.msl.ratings.client.dao.UserRatingsDao;
+import com.kenzan.msl.ratings.client.dto.AverageRatingsDto;
+import com.kenzan.msl.ratings.client.dto.UserRatingsDto;
 import com.kenzan.msl.ratings.client.services.CassandraRatingsService;
 
 import java.util.UUID;
@@ -27,21 +27,21 @@ public class RatingsEdgeService {
 
         if ( contentType.equals("Album") || contentType.equals("Artist") || contentType.equals("Song") ) {
             // STEP 1: add or update user rating.
-            UserRatingsDao userRatingsDao = new UserRatingsDao();
-            userRatingsDao.setUserId(UUID.fromString(sessionToken));
-            userRatingsDao.setContentUuid(UUID.fromString(albumId));
-            userRatingsDao.setRating(rating);
-            userRatingsDao.setContentType(contentType);
+            UserRatingsDto userRatingsDto = new UserRatingsDto();
+            userRatingsDto.setUserId(UUID.fromString(sessionToken));
+            userRatingsDto.setContentUuid(UUID.fromString(albumId));
+            userRatingsDto.setRating(rating);
+            userRatingsDto.setContentType(contentType);
 
             // STEP 2: update average ratings
-            AverageRatingsDao averageRatingsDao = new AverageRatingsDao();
-            averageRatingsDao.setContentId(UUID.fromString(albumId));
-            averageRatingsDao.setSumRating(new Long(1));
-            averageRatingsDao.setNumRating(new Long(rating));
-            averageRatingsDao.setContentType(contentType);
+            AverageRatingsDto averageRatingsDto = new AverageRatingsDto();
+            averageRatingsDto.setContentId(UUID.fromString(albumId));
+            averageRatingsDto.setSumRating(new Long(1));
+            averageRatingsDto.setNumRating(new Long(rating));
+            averageRatingsDto.setContentType(contentType);
 
-            cassandraRatingsService.addOrUpdateUserRatings(userRatingsDao);
-            cassandraRatingsService.addOrUpdateAverageRating(averageRatingsDao);
+            cassandraRatingsService.addOrUpdateUserRatings(userRatingsDto);
+            cassandraRatingsService.addOrUpdateAverageRating(averageRatingsDto);
         }
         else {
             throw new RuntimeException("Invalid content type");

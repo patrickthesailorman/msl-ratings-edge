@@ -1,7 +1,7 @@
 package com.kenzan.msl.ratings.edge.services;
 
-import com.kenzan.msl.ratings.client.dao.AverageRatingsDao;
-import com.kenzan.msl.ratings.client.dao.UserRatingsDao;
+import com.kenzan.msl.ratings.client.dto.AverageRatingsDto;
+import com.kenzan.msl.ratings.client.dto.UserRatingsDto;
 
 import java.util.UUID;
 
@@ -13,21 +13,21 @@ public class TestConstants {
     public final String ALBUM_CONTENT_TYPE = "Album";
     public final Integer RATING = 4;
 
-    public AverageRatingsDao averageRatingsDao = new AverageRatingsDao();
-    public UserRatingsDao userRatingsDao = new UserRatingsDao();
+    public AverageRatingsDto averageRatingsDto = new AverageRatingsDto();
+    public UserRatingsDto userRatingsDto = new UserRatingsDto();
 
     private static TestConstants instance = null;
 
     private TestConstants() {
-        averageRatingsDao.setNumRating(new Long(3));
-        averageRatingsDao.setSumRating(new Long(1));
-        averageRatingsDao.setContentType(ALBUM_CONTENT_TYPE);
-        averageRatingsDao.setContentId(ALBUM_ID);
+        averageRatingsDto.setNumRating(new Long(3));
+        averageRatingsDto.setSumRating(new Long(1));
+        averageRatingsDto.setContentType(ALBUM_CONTENT_TYPE);
+        averageRatingsDto.setContentId(ALBUM_ID);
 
-        userRatingsDao.setContentUuid(ALBUM_ID);
-        userRatingsDao.setUserId(USER_ID);
-        userRatingsDao.setContentType(ALBUM_CONTENT_TYPE);
-        userRatingsDao.setRating(3);
+        userRatingsDto.setContentUuid(ALBUM_ID);
+        userRatingsDto.setUserId(USER_ID);
+        userRatingsDto.setContentType(ALBUM_CONTENT_TYPE);
+        userRatingsDto.setRating(3);
     }
 
     public static TestConstants getInstance() {
