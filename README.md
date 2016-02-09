@@ -24,7 +24,12 @@ mvn clean formatter:format
 
 ### Install dependencies without running tests 
 ```
-mvn -P no-test clean install
+mvn -P no-tests clean install
+```
+
+### RPM packaging
+```
+mvn -P no-tests package && mvn rpm:rpm
 ```
 
 ##Reports
