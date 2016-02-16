@@ -1,7 +1,8 @@
-package io.swagger.api.impl;
+package com.kenzan.msl.ratings.edge;
 
 import com.netflix.governator.annotations.Modules;
 import io.swagger.api.RatingsEdgeApi;
+import io.swagger.api.impl.RatingsEdgeApiOriginFilter;
 import netflix.adminresources.resources.KaryonWebAdminModule;
 import netflix.karyon.KaryonBootstrap;
 import netflix.karyon.ShutdownModule;
