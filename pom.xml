@@ -302,7 +302,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>io.swagger.api.impl.Main</mainClass>
+                            <mainClass>com.kenzan.msl.ratings.edge.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
