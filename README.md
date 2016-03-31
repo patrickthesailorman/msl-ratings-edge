@@ -15,9 +15,9 @@ mvn clean compile
 
 ## Useful commands
 
-To generate sources from swagger spec
+To generate sources from swagger spec, run tests and install dependencies 
 ```
-mvn -P build clean generate-sources
+mvn -P build clean generate-sources install
 ```
 
 To run the server on port `9004`, execute the following:
@@ -25,7 +25,7 @@ To run the server on port `9004`, execute the following:
 mvn -P dev clean jetty:run
 ```
 
-To format code
+To format code to comply with style-guide
 ```
 mvn clean formatter:format
 ```
@@ -35,18 +35,12 @@ mvn clean formatter:format
 mvn -P no-tests clean install
 ```
 
-### RPM && JAR packaging
+### JAR packaging
 ```
 mvn -P no-tests package
 ```
 
 ##Reports
-###Surefire reports:
-```
-mvn site
-```
-report gets generated under `/target/site/index.html`
- 
 ###Cobertura
 ```
 mvn cobertura:cobertura
@@ -58,7 +52,3 @@ report gets generated under `/target/site/cobertura/index.html`
 mvn package
 ```
 report gets generated under `/target/site/jacoco`
-
-## Some dependencies required installation before running
-- msl-models
-- msl-account-data-client
