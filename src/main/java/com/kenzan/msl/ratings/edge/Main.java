@@ -31,7 +31,7 @@ public class Main {
    */
   public static void main(String[] args) throws Exception {
 
-    Server jettyServer = new Server(9003);
+    Server jettyServer = new Server(9004);
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/");
     context.addFilter(RatingsEdgeApiOriginFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
