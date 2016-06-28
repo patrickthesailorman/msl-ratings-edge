@@ -613,6 +613,8 @@
             <groupId>msl.server</groupId>
             <artifactId>msl-ratings-data-client</artifactId>
             <version>${msl-server.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../msl-ratings-data-client/target/msl-ratings-data-client-1.0.0.jar</systemPath>
         </dependency>
 
     </dependencies>

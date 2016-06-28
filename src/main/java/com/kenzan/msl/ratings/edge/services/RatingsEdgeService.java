@@ -1,17 +1,21 @@
 package com.kenzan.msl.ratings.edge.services;
 
+import com.kenzan.msl.common.ContentType;
 import com.kenzan.msl.ratings.client.dto.AverageRatingsDto;
 import com.kenzan.msl.ratings.client.dto.UserRatingsDto;
 import com.kenzan.msl.ratings.client.services.CassandraRatingsService;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class RatingsEdgeService {
 
-  private CassandraRatingsService cassandraRatingsService;
+  private final CassandraRatingsService cassandraRatingsService;
 
-  public RatingsEdgeService() {
-    cassandraRatingsService = CassandraRatingsService.getInstance();
+  public static HashMap archaiusProperties;
+
+  public RatingsEdgeService(CassandraRatingsService cassandraRatingsService) {
+    this.cassandraRatingsService = cassandraRatingsService;
   }
 
   /**
@@ -25,7 +29,7 @@ public class RatingsEdgeService {
   public void rateContent(final String albumId, final Integer rating, final String sessionToken,
       final String contentType) {
 
-    if (contentType.equals("Album") || contentType.equals("Artist") || contentType.equals("Song")) {
+    if (ContentType.hasValidContentType(contentType)) {
       // STEP 1: add or update user rating.
       UserRatingsDto userRatingsDto = new UserRatingsDto();
       userRatingsDto.setUserId(UUID.fromString(sessionToken));

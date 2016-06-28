@@ -1,5 +1,7 @@
 package io.swagger.api.impl;
 
+import com.google.common.base.Optional;
+import com.kenzan.msl.ratings.client.services.CassandraRatingsService;
 import com.kenzan.msl.ratings.edge.services.RatingsEdgeService;
 import io.swagger.api.*;
 import io.swagger.api.NotFoundException;
@@ -10,7 +12,11 @@ import javax.ws.rs.core.Response;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.JaxRSServerCodegen", date = "2016-01-25T12:48:18.840-06:00")
 public class RatingsEdgeApiServiceImpl extends RatingsEdgeApiService {
 
-    private RatingsEdgeService ratingsEdgeService = new RatingsEdgeService();
+    private final CassandraRatingsService cassandraRatingsService = CassandraRatingsService
+            .getInstance(Optional.fromNullable(RatingsEdgeService.archaiusProperties));
+
+    private final RatingsEdgeService ratingsEdgeService = new RatingsEdgeService(cassandraRatingsService);
+
     private RatingsEdgeSessionToken ratingsSessionToken = RatingsEdgeSessionToken.getInstance();
 
     @Override
