@@ -4,14 +4,17 @@ import com.kenzan.msl.ratings.client.dto.AverageRatingsDto;
 import com.kenzan.msl.ratings.client.dto.UserRatingsDto;
 import com.kenzan.msl.ratings.client.services.CassandraRatingsService;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class RatingsEdgeService {
 
   private CassandraRatingsService cassandraRatingsService;
 
-  public RatingsEdgeService() {
-    cassandraRatingsService = CassandraRatingsService.getInstance();
+  public static HashMap archaiusProperties;
+
+  public RatingsEdgeService(CassandraRatingsService _cassandraRatingsService) {
+    cassandraRatingsService = _cassandraRatingsService;
   }
 
   /**

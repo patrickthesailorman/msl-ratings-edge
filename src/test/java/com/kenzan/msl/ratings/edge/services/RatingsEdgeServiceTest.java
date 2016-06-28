@@ -40,7 +40,7 @@ public class RatingsEdgeServiceTest {
 
     /* ********************************** */
 
-    RatingsEdgeService ratingsEdgeService = new RatingsEdgeService();
+    RatingsEdgeService ratingsEdgeService = new RatingsEdgeService(cassandraRatingsService);
     ratingsEdgeService.rateContent(tc.ALBUM_ID.toString(), tc.RATING, tc.USER_ID.toString(),
         tc.ALBUM_CONTENT_TYPE);
   }
@@ -51,7 +51,7 @@ public class RatingsEdgeServiceTest {
     PowerMock.replayAll();
 
     /* ********************************** */
-    RatingsEdgeService ratingsEdgeService = new RatingsEdgeService();
+    RatingsEdgeService ratingsEdgeService = new RatingsEdgeService(cassandraRatingsService);
     ratingsEdgeService.rateContent(tc.ALBUM_ID.toString(), tc.RATING, tc.USER_ID.toString(),
         "INVALID_CONTENT_TYPE");
   }

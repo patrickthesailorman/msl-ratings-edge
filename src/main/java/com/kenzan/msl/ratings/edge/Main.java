@@ -1,5 +1,7 @@
 package com.kenzan.msl.ratings.edge;
 
+import com.google.common.base.Optional;
+import com.kenzan.msl.ratings.edge.services.RatingsEdgeService;
 import com.netflix.governator.annotations.Modules;
 import io.swagger.api.RatingsEdgeApi;
 import io.swagger.api.impl.RatingsEdgeApiOriginFilter;
@@ -15,6 +17,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
+import java.util.HashMap;
 
 @ArchaiusBootstrap
 @KaryonBootstrap(name = "msl-ratings-edge")
@@ -30,6 +33,12 @@ public class Main {
    * @throws Exception if server doesn't start
    */
   public static void main(String[] args) throws Exception {
+
+    RatingsEdgeService.archaiusProperties = new HashMap<String, Optional<String>>();
+    RatingsEdgeService.archaiusProperties.put("region",
+        Optional.fromNullable(System.getProperty("archaius.deployment.region")));
+    RatingsEdgeService.archaiusProperties.put("domainName",
+        Optional.fromNullable(System.getProperty("archaius.deployment.domainName")));
 
     Server jettyServer = new Server(9004);
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
