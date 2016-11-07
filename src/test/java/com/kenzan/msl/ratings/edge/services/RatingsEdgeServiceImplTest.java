@@ -1,6 +1,6 @@
 package com.kenzan.msl.ratings.edge.services;
 
-import com.kenzan.msl.ratings.client.services.CassandraRatingsService;
+import com.kenzan.msl.ratings.client.services.RatingsDataClientService;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +14,16 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({CassandraRatingsService.class})
-public class RatingsEdgeServiceTest {
+@PrepareForTest({RatingsDataClientService.class})
+public class RatingsEdgeServiceImplTest {
 
   private TestConstants tc = TestConstants.getInstance();
-  private CassandraRatingsService cassandraRatingsService;
+  private RatingsDataClientService cassandraRatingsService;
 
   @Before
   public void init() throws Exception {
-    PowerMock.mockStatic(CassandraRatingsService.class);
-    cassandraRatingsService = createMock(CassandraRatingsService.class);
-    PowerMock.expectNew(CassandraRatingsService.class).andReturn(cassandraRatingsService);
-    expect(CassandraRatingsService.getInstance()).andReturn(cassandraRatingsService).anyTimes();
+    PowerMock.mockStatic(RatingsDataClientService.class);
+    cassandraRatingsService = createMock(RatingsDataClientService.class);
   }
 
   @Test
@@ -40,7 +38,7 @@ public class RatingsEdgeServiceTest {
 
     /* ********************************** */
 
-    RatingsEdgeService ratingsEdgeService = new RatingsEdgeService(cassandraRatingsService);
+    RatingsEdgeServiceImpl ratingsEdgeService = new RatingsEdgeServiceImpl(cassandraRatingsService);
     ratingsEdgeService.rateContent(tc.ALBUM_ID.toString(), tc.RATING, tc.USER_ID.toString(),
         tc.ALBUM_CONTENT_TYPE);
   }
@@ -51,7 +49,7 @@ public class RatingsEdgeServiceTest {
     PowerMock.replayAll();
 
     /* ********************************** */
-    RatingsEdgeService ratingsEdgeService = new RatingsEdgeService(cassandraRatingsService);
+    RatingsEdgeServiceImpl ratingsEdgeService = new RatingsEdgeServiceImpl(cassandraRatingsService);
     ratingsEdgeService.rateContent(tc.ALBUM_ID.toString(), tc.RATING, tc.USER_ID.toString(),
         "INVALID_CONTENT_TYPE");
   }

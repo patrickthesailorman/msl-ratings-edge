@@ -400,6 +400,19 @@
             <version>2.4.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet-api-version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.jersey.contribs/jersey-guice -->
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-guice</artifactId>
+            <version>1.18.1</version>
+        </dependency>
+
         <!-- SWAGGER -->
         <dependency>
             <groupId>io.swagger</groupId>
@@ -418,37 +431,11 @@
             <version>${slf4j-version}</version>
         </dependency>
 
-        <!-- API -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet-api-version}</version>
-        </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
             <scope>compile</scope>
-        </dependency>
-
-        <!-- KARYON  -->
-        <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-jersey-blocking</artifactId>
-            <version>${karyon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-core</artifactId>
-            <version>${karyon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-admin-web</artifactId>
-            <version>${karyon.version}</version>
         </dependency>
 
         <dependency>
@@ -462,11 +449,6 @@
             <version>1.9.11</version>
         </dependency>
         <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-admin</artifactId>
-            <version>2.7.5</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.2.1</version>
@@ -475,36 +457,6 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-archaius</artifactId>
-            <version>${karyon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-eureka</artifactId>
-            <version>${karyon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-servo</artifactId>
-            <version>${karyon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.netflix.karyon</groupId>
-            <artifactId>karyon2-governator</artifactId>
-            <version>${karyon.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.netflix.governator</groupId>
-            <artifactId>governator</artifactId>
-            <version>${karyon-governator.version}</version>
         </dependency>
 
         <!-- JETTY -->
@@ -524,8 +476,27 @@
         <dependency>
             <groupId>com.netflix.rxjava</groupId>
             <artifactId>rxjava-core</artifactId>
-            <version>${rxjava-core.version}</version>
+            <version>0.20.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.netflix.archaius</groupId>
+            <artifactId>archaius-core</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netflix.governator</groupId>
+            <artifactId>governator-core</artifactId>
+            <version>1.12.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netflix.karyon</groupId>
+            <artifactId>karyon-core</artifactId>
+            <version>1.0.27</version>
+        </dependency>
+
 
         <!-- CASSANDRA -->
         <dependency>
@@ -619,7 +590,10 @@
         <dependency>
             <groupId>msl.server</groupId>
             <artifactId>msl-ratings-data-client</artifactId>
-            <version>${msl-server.version}</version>
+            <version>1.2.0</version>
+            <!--<version>${msl-server.version}</version>-->
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../msl-ratings-data-client/target/msl-ratings-data-client-1.2.0.jar</systemPath>
         </dependency>
 
     </dependencies>
