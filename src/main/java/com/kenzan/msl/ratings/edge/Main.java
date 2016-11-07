@@ -1,7 +1,10 @@
 package com.kenzan.msl.ratings.edge;
 
-import com.google.common.base.Optional;
-import com.kenzan.msl.ratings.edge.services.RatingsEdgeServiceImpl;
+import com.google.inject.Injector;
+import com.kenzan.msl.ratings.client.config.RatingsDataClientModule;
+import com.kenzan.msl.ratings.edge.config.RatingsEdgeModule;
+import com.netflix.governator.guice.LifecycleInjector;
+import com.netflix.governator.lifecycle.LifecycleManager;
 import io.swagger.api.RatingsEdgeApi;
 import io.swagger.api.impl.RatingsEdgeApiOriginFilter;
 import org.eclipse.jetty.server.Server;
@@ -11,7 +14,6 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
-import java.util.HashMap;
 
 public class Main {
   /**
@@ -22,11 +24,12 @@ public class Main {
    */
   public static void main(String[] args) throws Exception {
 
-    RatingsEdgeServiceImpl.archaiusProperties = new HashMap<String, Optional<String>>();
-    RatingsEdgeServiceImpl.archaiusProperties.put("region",
-        Optional.fromNullable(System.getProperty("archaius.deployment.region")));
-    RatingsEdgeServiceImpl.archaiusProperties.put("domainName",
-        Optional.fromNullable(System.getProperty("archaius.deployment.domainName")));
+    Injector injector =  LifecycleInjector.builder()
+            .withModules(new RatingsDataClientModule(), new RatingsEdgeModule())
+            .build()
+            .createInjector();
+
+    LifecycleManager manager = injector.getInstance(LifecycleManager.class);
 
     Server jettyServer = new Server(9004);
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -41,11 +44,11 @@ public class Main {
         RatingsEdgeApi.class.getCanonicalName());
 
     try {
-
+      manager.start();
       jettyServer.start();
       jettyServer.join();
-
     } finally {
+      manager.close();
       jettyServer.destroy();
     }
   }
