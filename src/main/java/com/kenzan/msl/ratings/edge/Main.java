@@ -1,15 +1,12 @@
 package com.kenzan.msl.ratings.edge;
 
-import com.google.common.base.Optional;
-import com.kenzan.msl.ratings.edge.services.RatingsEdgeService;
-import com.netflix.governator.annotations.Modules;
+import com.google.inject.Injector;
+import com.kenzan.msl.ratings.client.config.RatingsDataClientModule;
+import com.kenzan.msl.ratings.edge.config.RatingsEdgeModule;
+import com.netflix.governator.guice.LifecycleInjector;
+import com.netflix.governator.lifecycle.LifecycleManager;
 import io.swagger.api.RatingsEdgeApi;
 import io.swagger.api.impl.RatingsEdgeApiOriginFilter;
-import netflix.adminresources.resources.KaryonWebAdminModule;
-import netflix.karyon.KaryonBootstrap;
-import netflix.karyon.ShutdownModule;
-import netflix.karyon.archaius.ArchaiusBootstrap;
-import netflix.karyon.servo.KaryonServoModule;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -17,14 +14,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
-import java.util.HashMap;
 
-@ArchaiusBootstrap
-@KaryonBootstrap(name = "msl-ratings-edge")
-@Modules(include = {ShutdownModule.class, KaryonWebAdminModule.class, // Uncomment this to enable
-                                                                      // WebAdmin
-    // KaryonEurekaModule.class, // Uncomment this to enable Eureka client.
-    KaryonServoModule.class})
 public class Main {
   /**
    * Runs jetty server to expose jersey API
@@ -34,11 +24,12 @@ public class Main {
    */
   public static void main(String[] args) throws Exception {
 
-    RatingsEdgeService.archaiusProperties = new HashMap<String, Optional<String>>();
-    RatingsEdgeService.archaiusProperties.put("region",
-        Optional.fromNullable(System.getProperty("archaius.deployment.region")));
-    RatingsEdgeService.archaiusProperties.put("domainName",
-        Optional.fromNullable(System.getProperty("archaius.deployment.domainName")));
+    Injector injector =  LifecycleInjector.builder()
+            .withModules(new RatingsDataClientModule(), new RatingsEdgeModule())
+            .build()
+            .createInjector();
+
+    LifecycleManager manager = injector.getInstance(LifecycleManager.class);
 
     Server jettyServer = new Server(9004);
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -53,11 +44,11 @@ public class Main {
         RatingsEdgeApi.class.getCanonicalName());
 
     try {
-
+      manager.start();
       jettyServer.start();
       jettyServer.join();
-
     } finally {
+      manager.close();
       jettyServer.destroy();
     }
   }
