@@ -13,20 +13,21 @@ public class RatingsEdgeApiServiceImpl extends RatingsEdgeApiService {
 
 
     private final RatingsEdgeServiceImpl ratingsEdgeService;
+    private RatingsEdgeSessionToken ratingsEdgeSessionToken;
 
     @Inject
-    public RatingsEdgeApiServiceImpl (final RatingsEdgeServiceImpl ratingsEdgeService) {
+    public RatingsEdgeApiServiceImpl (final RatingsEdgeServiceImpl ratingsEdgeService,
+                                      final RatingsEdgeSessionToken ratingsEdgeSessionToken) {
         this.ratingsEdgeService = ratingsEdgeService;
+        this.ratingsEdgeSessionToken = ratingsEdgeSessionToken;
     }
-
-    private RatingsEdgeSessionToken ratingsSessionToken = RatingsEdgeSessionToken.getInstance();
 
     @Override
     public Response rateAlbum(String albumId, Integer rating)
             throws NotFoundException {
-        if (RatingsEdgeSessionToken.getInstance().isValidToken()) {
+        if (ratingsEdgeSessionToken.isValidToken()) {
             try {
-                ratingsEdgeService.rateContent(albumId, rating, ratingsSessionToken.getTokenValue(), "Album");
+                ratingsEdgeService.rateContent(albumId, rating, ratingsEdgeSessionToken.getTokenValue(), "Album");
                 return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "sucess")).build();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -43,9 +44,9 @@ public class RatingsEdgeApiServiceImpl extends RatingsEdgeApiService {
     @Override
     public Response rateArtist(String artistId, Integer rating)
             throws NotFoundException {
-        if (RatingsEdgeSessionToken.getInstance().isValidToken()) {
+        if (ratingsEdgeSessionToken.isValidToken()) {
             try {
-                ratingsEdgeService.rateContent(artistId, rating, ratingsSessionToken.getTokenValue(), "Artist");
+                ratingsEdgeService.rateContent(artistId, rating, ratingsEdgeSessionToken.getTokenValue(), "Artist");
                 return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "sucess")).build();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -62,9 +63,9 @@ public class RatingsEdgeApiServiceImpl extends RatingsEdgeApiService {
     @Override
     public Response rateSong(String songId, Integer rating)
             throws NotFoundException {
-        if (RatingsEdgeSessionToken.getInstance().isValidToken()) {
+        if (ratingsEdgeSessionToken.isValidToken()) {
             try {
-                ratingsEdgeService.rateContent(songId, rating, ratingsSessionToken.getTokenValue(), "Song");
+                ratingsEdgeService.rateContent(songId, rating, ratingsEdgeSessionToken.getTokenValue(), "Song");
                 return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "sucess")).build();
             } catch (Exception e) {
                 e.printStackTrace();
