@@ -8,6 +8,7 @@ import java.util.UUID;
  * @author Kenzan
  */
 public interface RatingsEdgeSessionToken {
+    void setDomain (String domain);
     void updateSessionToken(HttpServletRequest req);
     boolean isValidToken();
     NewCookie getSessionCookie(UUID sessionToken);

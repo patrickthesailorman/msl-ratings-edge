@@ -26,6 +26,7 @@ public class RatingsEdgeApiOriginFilter implements javax.servlet.Filter {
         res.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
         res.addHeader("Access-Control-Allow-Headers", "Content-Type");
         res.addHeader("Access-Control-Allow-Credentials", "true");
+        ratingsEdgeSessionToken.setDomain(req.getServerName());
         ratingsEdgeSessionToken.updateSessionToken(req);
         chain.doFilter(request, response);
     }

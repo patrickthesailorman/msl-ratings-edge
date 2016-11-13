@@ -8,9 +8,12 @@ import java.util.UUID;
 
 public class RatingsEdgeSessionTokenImpl implements RatingsEdgeSessionToken {
 
-    private static RatingsEdgeSessionTokenImpl ratingsEdgeSessionToken = null;
-
     private String tokenValue;
+    private String domain = "localhost";
+
+    public void setDomain (String domain) {
+        this.domain = domain;
+    }
 
     /**
      * Updates sessionToken on each coming request
