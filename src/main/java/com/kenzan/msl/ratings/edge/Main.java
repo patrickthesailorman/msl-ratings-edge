@@ -21,7 +21,7 @@ public class Main {
      * @throws Exception if server doesn't start
      */
     public static void main(String[] args) throws Exception {
-
+        System.setProperty("archaius.deployment.applicationId", "ratingsedge");
         Server jettyServer = new Server(9004);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
